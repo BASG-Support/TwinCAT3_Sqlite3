@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.36">
+  <POU Name="MAIN" Id="{778f565f-d71e-412b-bdc8-4a36133276c4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	myDB	: DBAdaptor;
+	fbTon 	: TON;
+	fbTrig	: R_TRIG;
+	SQL : STRING(255) := 'INSERT INTO messagelog (message,timestamp) VALUES($'Interval Triggered$',datetime($'now$'))';
+	Debug : DB_FunctionResult;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ACT_Interval();
+myDB.udiDatabase_ID := 1;
+myDB.TimeOut := T#5S;
+IF fbTrig.Q THEN
+	Debug := myDB.SQL_Insert(SQL);
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="ACT_Interval" Id="{6943b751-c915-48dd-a315-1b312ef568bc}">
+      <Implementation>
+        <ST><![CDATA[fbTon(IN:= NOT fbTon.Q, PT:= T#1S );
+fbTrig(CLK:= fbTon.Q);]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

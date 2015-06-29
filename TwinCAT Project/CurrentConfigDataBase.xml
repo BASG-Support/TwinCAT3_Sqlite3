@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="yes"?>
+<Configuration>
+	<StartUp>Manual</StartUp>
+	<Databases>
+		<Database Type="SQLite" ValueType="Double">
+			<DBId>1</DBId>
+			<DBServer>
+			</DBServer>
+			<DBProvider>
+			</DBProvider>
+			<DBUrl>C:\Users\SiangC\Desktop\applog.db</DBUrl>
+			<DBTable>messagelog</DBTable>
+		</Database>
+	</Databases>
+	<AdsDevices />
+	<SymbolGroups />
+</Configuration>
